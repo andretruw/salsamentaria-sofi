@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Logo/Favicon.jpeg" type="image/jpeg">
+    <title>Catálogo - Desarrollo de una aplicación web informativa</title>
+    <!-- Referencia al CSS retrocediendo un nivel -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .catalogo-header {
+            padding-top: 120px;
+            padding-bottom: 40px;
+            text-align: center;
+            background: var(--bg-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
+            Salsamentaria<span>Sofi</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Misión y Visión</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="promociones.html">Promociones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="integrantes.html">Integrantes</a></li>
+            <li><a href="resenas.html">Reseñas</a></li>
+        </ul>
+    </nav>
+
+    <div class="catalogo-header">
+        <div class="section-header">
+            <h2>Catálogo Completo de Productos</h2>
+            <p>Explora toda nuestra variedad disponible en tienda.</p>
+        </div>
+    </div>
+
+    <section style="padding-top: 0;" class="products">
+        <div class="product-grid" id="full-catalog">
+            <!-- Grid poblado desde JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola,%20quisiera%20pedir%20algo%20del%20cat%C3%A1logo." class="whatsapp-float" target="_blank" title="Hacer pedido por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Datos del catálogo completo
+        const allProducts = [
+            { name: "Mortadela Zenu", price: 12000, unit: "500g", image: "../productos/EMBUTIOS/embutido-1.jpeg" },
+            { name: "Jamón Zenu", price: 20500, unit: "500g", image: "../productos/EMBUTIOS/embutido-2.jpeg" },
+            { name: "Jamón Zenu", price: 12000, unit: "250g", image: "../productos/EMBUTIOS/embutido-3.jpeg" },
+            { name: "Jamón Zenu", price: 0, unit: "111g", image: "../productos/EMBUTIOS/embutido-4.jpeg" },
+            { name: "Mortadela Zenu", price: 7500, unit: "250g", image: "../productos/EMBUTIOS/embutido-5.jpeg" },
+            { name: "Mortadela", price: 7000, unit: "250g", image: "../productos/EMBUTIOS/embutido-6.jpeg" },
+            { name: "Jamón Pietran", price: 15000, unit: "230g", image: "../productos/EMBUTIOS/embutido-7.jpeg" },
+            { name: "Jamón Rica Chef", price: 18000, unit: "500g", image: "../productos/EMBUTIOS/embutido-8.jpeg" },
+            { name: "Mortadela Rica", price: 10500, unit: "450g", image: "../productos/EMBUTIOS/embutido-9.jpeg" },
+            { name: "Chorizo Ternera Zenu", price: 22000, unit: "450g", image: "../productos/EMBUTIOS/embutido-10.jpeg" },
+            { name: "Salchicha Llanera Rica", price: 21000, unit: "500g", image: "../productos/EMBUTIOS/embutido-11.jpeg" },
+            { name: "Hamburguesa Ranchera", price: 7500, unit: "2 unds", image: "../productos/EMBUTIOS/embutido-12.jpeg" },
+            { name: "Salchicha Americana Zenu", price: 52000, unit: "18 unds", image: "../productos/EMBUTIOS/embutido-13.jpeg" },
+            { name: "Salchicha Long Zenu", price: 33500, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-14.jpeg" },
+            { name: "Chorizo Santarrosano Zenu", price: 0, unit: "250g", image: "../productos/EMBUTIOS/embutido-15.jpeg" },
+            { name: "Jamón Frigosan", price: 8000, unit: "450g", image: "../productos/EMBUTIOS/embutido-16.jpeg" },
+            { name: "Jamón Ahumado Nutivara", price: 10000, unit: "500g", image: "../productos/EMBUTIOS/embutido-17.jpeg" },
+            { name: "Jamón Ahumado Nutivara", price: 5500, unit: "250g", image: "../productos/EMBUTIOS/embutido-18.jpeg" },
+            { name: "Jamón Frigosan", price: 8000, unit: "450g", image: "../productos/EMBUTIOS/embutido-19.jpeg" },
+            { name: "Tocineta Nojo's", price: 17500, unit: "900g", image: "../productos/EMBUTIOS/embutido-20.jpeg" },
+            { name: "Tocineta El Coleo", price: 7500, unit: "250g", image: "../productos/EMBUTIOS/embutido-21.jpeg" },
+            { name: "Tocineta El Coleo", price: 19500, unit: "1000g", image: "../productos/EMBUTIOS/embutido-22.jpeg" },
+            { name: "Carne Hamburguesa San Miguel", price: 0, unit: "500g 6 unds", image: "../productos/EMBUTIOS/embutido-23.jpeg" },
+            { name: "Carne Hamburguesa Nutivara", price: 7000, unit: "500g 10 unds", image: "../productos/EMBUTIOS/embutido-24.jpeg" },
+            { name: "Carne Hamburguesa Madrigal", price: 0, unit: "500g 8 unds", image: "../productos/EMBUTIOS/embutido-25.jpeg" },
+            { name: "Salchicha Americana Azul", price: 36000, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-26.jpeg" },
+            { name: "Salchicha Américana El Coleo", price: 35000, unit: "Unidad", image: "../productos/EMBUTIOS/embutido-27.jpeg" },
+            { name: "Salchicha de Cerdo Alemana El Coleo", price: 32000, unit: "36 unds", image: "../productos/EMBUTIOS/embutido-28.jpeg" },
+            { name: "Salchicha Frigosan Maxidog", price: 22000, unit: "24 unds", image: "../productos/EMBUTIOS/embutido-29.jpeg" },
+            { name: "Chorizo Mixto Mini", price: 12500, unit: "500g 10 unds", image: "../productos/EMBUTIOS/embutido-30.jpeg" },
+            { name: "Chorizo Suizo Madrigal", price: 11000, unit: "500g 6 unds", image: "../productos/EMBUTIOS/embutido-31.jpeg" },
+            { name: "Chorizo Suizo Madrigal", price: 13000, unit: "720g 6 unds", image: "../productos/EMBUTIOS/embutido-32.jpeg" },
+            { name: "Chorizo Cóctel Nutivara", price: 12500, unit: "500g", image: "../productos/EMBUTIOS/embutido-33.jpeg" },
+            { name: "Salchichón Cerveroni Zenu", price: 13500, unit: "500g", image: "../productos/EMBUTIOS/embutido-34.jpeg" },
+            { name: "Salchichón Cervecero Rica", price: 22000, unit: "950g", image: "../productos/EMBUTIOS/embutido-35.jpeg" },
+            { name: "Salchichón Cerveroni Zenu", price: 27000, unit: "1000g", image: "../productos/EMBUTIOS/embutido-36.jpeg" },
+            { name: "Salchicha Manguera Frigosan", price: 9000, unit: "1000g 8 unds", image: "../productos/EMBUTIOS/embutido-37.jpeg" },
+            { name: "Chorizo Nutivara", price: 17000, unit: "1.200g", image: "../productos/EMBUTIOS/embutido-38.jpeg" },
+            { name: "Salchichón Nutivara", price: 8500, unit: "1000g", image: "../productos/EMBUTIOS/embutido-39.jpeg" },
+            { name: "Chorizo Santarrosano", price: 18000, unit: "1.100g", image: "../productos/EMBUTIOS/embutido-40.jpeg" },
+            { name: "Zenu Salchichón de Pollo", price: 3000, unit: "100g", image: "../productos/EMBUTIOS/embutido-nuevo-1.jpeg" },
+            { name: "Zenu Chorizo", price: 5500, unit: "2 unds", image: "../productos/EMBUTIOS/embutido-nuevo-2.jpeg" },
+            { name: "Zenu Salchichón", price: 3000, unit: "100g", image: "../productos/EMBUTIOS/embutido-nuevo-3.jpeg" },
+            { name: "Salsa Tártara", price: 6800, unit: "500G", image: "../productos/salsas/salsa-1.jpeg" },
+            { name: "Salsa Dulce Maíz", price: 8400, unit: "500G", image: "../productos/salsas/salsa-2.jpeg" },
+            { name: "Salsa Tomate", price: 3300, unit: "500G", image: "../productos/salsas/salsa-3.jpeg" },
+            { name: "Salsa Mayonesa", price: 4100, unit: "500G", image: "../productos/salsas/salsa-4.jpeg" },
+            { name: "Salsa Rosada Libra", price: 4600, unit: "500G", image: "../productos/salsas/salsa-5.jpeg" },
+            { name: "Salsa Mostaza", price: 4100, unit: "500G", image: "../productos/salsas/salsa-6.jpeg" },
+            { name: "Salsa de Mora", price: 4800, unit: "500G", image: "../productos/salsas/salsa-7.jpeg" },
+            { name: "Salsa BBQ", price: 4400, unit: "500G", image: "../productos/salsas/salsa-8.jpeg" },
+            { name: "Salsa de Piña", price: 3700, unit: "500G", image: "../productos/salsas/salsa-9.jpeg" },
+            { name: "Lechera Condensada", price: 2000, unit: "130G", image: "../productos/salsas/salsa-10.jpeg" },
+            { name: "Salsa Rosada", price: 8500, unit: "1.000G", image: "../productos/salsas/salsa-11.jpeg" },
+            { name: "Salsa Pasta de Tomate", price: 14000, unit: "1.000G", image: "../productos/salsas/salsa-12.jpeg" },
+            { name: "Salsa Mostaza", price: 6400, unit: "1.000G", image: "../productos/salsas/salsa-13.jpeg" },
+            { name: "Salsa Mayonesa", price: 7500, unit: "1.000G", image: "../productos/salsas/salsa-14.jpeg" },
+            { name: "Leche Condensada", price: 13000, unit: "970G", image: "../productos/salsas/salsa-15.jpeg" },
+            { name: "Salsa de Mora", price: 6800, unit: "1.000G", image: "../productos/salsas/salsa-16.jpeg" },
+            { name: "Salsa de Piña", price: 6800, unit: "1.000G", image: "../productos/salsas/salsa-17.jpeg" },
+            { name: "Salsa Tártara", price: 9800, unit: "1.000G", image: "../productos/salsas/salsa-18.jpeg" },
+            { name: "Salsa de Tomate", price: 6000, unit: "1.000G", image: "../productos/salsas/salsa-19.jpeg" },
+            { name: "Salsa Humo", price: 4000, unit: "500ML", image: "../productos/salsas/salsa-20.jpeg" },
+            { name: "Salsa Soya", price: 4500, unit: "500ML", image: "../productos/salsas/salsa-21.jpeg" },
+            { name: "Picante Brava", price: 3500, unit: "170G", image: "../productos/salsas/salsa-22.jpeg" },
+            { name: "Salsa Negra", price: 4500, unit: "500ML", image: "../productos/salsas/salsa-23.jpeg" },
+            { name: "Salsa Pasta de Tomate", price: 52500, unit: "4.000G", image: "../productos/salsas/salsa-24.jpeg" },
+            { name: "Salsa Rosada", price: 27000, unit: "4.000G", image: "../productos/salsas/salsa-25.jpeg" },
+            { name: "Salsa de Piña", price: 21500, unit: "4.000G", image: "../productos/salsas/salsa-26.jpeg" },
+            { name: "Salsa Dulce Maíz", price: 58000, unit: "4.000G", image: "../productos/salsas/salsa-27.jpeg" },
+            { name: "Salsa Tártara", price: 34800, unit: "4.000G", image: "../productos/salsas/salsa-28.jpeg" },
+            { name: "Salsa Mayonesa", price: 24500, unit: "4.000G", image: "../productos/salsas/salsa-29.jpeg" },
+            { name: "Salsa Mostaza", price: 19000, unit: "4.000G", image: "../productos/salsas/salsa-30.jpeg" },
+            { name: "Salsa Dulce (Kiwi, Fresa, Chocolate, Chicle, Mora)", price: 4500, unit: "320G", image: "../productos/salsas/salsa-31.jpeg" },
+            { name: "Salsa Dulce (Kiwi, Fresa, Chocolate, Chicle, Mora)", price: 8000, unit: "810G", image: "../productos/salsas/salsa-32.jpeg" },
+            { name: "Salsa Tomate", price: 18000, unit: "4.000G", image: "../productos/salsas/salsa-33.jpeg" },
+            { name: "Salsa Dulce Maíz Sobres", price: 15000, unit: "100 unds 8g", image: "../productos/salsas/salsa-nuevo-1.jpeg" },
+            { name: "Salsa Rosada Sobres", price: 12500, unit: "100 unds 8g", image: "../productos/salsas/salsa-nuevo-2.jpeg" },
+            { name: "Salsa Mayonesa Sobres", price: 13500, unit: "100 unds 8g", image: "../productos/salsas/salsa-nuevo-3.jpeg" },
+            { name: "Fruco Salsa Mayonesa", price: 7000, unit: "190g", image: "../productos/salsas/salsa-nuevo-4.jpeg" },
+            { name: "Fruco Salsa Rosada", price: 2500, unit: "80g", image: "../productos/salsas/salsa-nuevo-5.jpeg" },
+            { name: "Fruco Mayonesa", price: 3500, unit: "120g", image: "../productos/salsas/salsa-nuevo-6.jpeg" },
+            { name: "Bary Vinagreta", price: 0, unit: "200g", image: "../productos/salsas/salsa-nuevo-7.jpeg" },
+            { name: "Queso Doble Crema Tajado (Bloque 50k, Libra 10k, 1/2 5k, 1/4 2.5k)", price: 10000, unit: "Libra", image: "../productos/LACTEOS/lacteo-1.jpeg" },
+            { name: "Mantequilla San Sebastián", price: 4500, unit: "250g", image: "../productos/LACTEOS/lacteo-2.jpeg" },
+            { name: "Mantequilla San Sebastián", price: 2500, unit: "125g", image: "../productos/LACTEOS/lacteo-3.jpeg" },
+            { name: "Mantequilla San Sebastián", price: 8000, unit: "500g", image: "../productos/LACTEOS/lacteo-5.jpeg" },
+            { name: "Grasa Bojacá", price: 13000, unit: "500g", image: "../productos/LACTEOS/lacteo-4.jpeg" },
+            { name: "Mantequilla La Fina", price: 4500, unit: "250g", image: "../productos/LACTEOS/lacteo-6.jpeg" },
+            { name: "Mantequilla La Fina", price: 2500, unit: "125g", image: "../productos/LACTEOS/lacteo-7.jpeg" },
+            { name: "Queso Parmesano", price: 6500, unit: "40g", image: "../productos/LACTEOS/lacteo-8.jpeg" },
+            { name: "Mantequilla Alpina", price: 9700, unit: "125g", image: "../productos/LACTEOS/lacteo-9.jpeg" },
+            { name: "Mantequilla La Fina", price: 8500, unit: "500g", image: "../productos/LACTEOS/lacteo-10.jpeg" },
+            { name: "Mantequilla Campi", price: 4700, unit: "125g", image: "../productos/LACTEOS/lacteo-11.jpeg" },
+            { name: "Leche Alquería Megalitro Deslactosada", price: 6500, unit: "1.100mL", image: "../productos/LACTEOS/lacteo-12.jpeg" },
+            { name: "Queso Cremosino Alpina", price: 6500, unit: "200g", image: "../productos/LACTEOS/lacteo-13.jpeg" },
+            { name: "Alquería Megalitro original", price: 6500, unit: "1.100mL", image: "../productos/LACTEOS/lacteo-14.jpeg" },
+            { name: "Mantequilla industrial", price: 4700, unit: "1000g", image: "../productos/LACTEOS/lacteo-15.jpeg" },
+            { name: "Mantequilla industrial", price: 2400, unit: "500g", image: "../productos/LACTEOS/lacteo-16.jpeg" },
+            { name: "Monte frío leche entera", price: 4500, unit: "900mL", image: "../productos/LACTEOS/lacteo-17.jpeg" },
+            { name: "Vaso 9 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-1.jpeg" },
+            { name: "Vasos 3.5 Onzas", price: 2600, unit: "Unidad", image: "../productos/desechables/desechable-2.jpeg" },
+            { name: "Vasos 14 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-3.jpeg" },
+            { name: "Vasos 7 Onzas", price: 2500, unit: "Unidad", image: "../productos/desechables/desechable-4.jpeg" },
+            { name: "Vasos 16 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-5.jpeg" },
+            { name: "Vaso 3.3 Onzas Bicolor", price: 2200, unit: "Unidad", image: "../productos/desechables/desechable-6.jpeg" },
+            { name: "Vasos 5 Onzas Bicolor", price: 2500, unit: "Unidad", image: "../productos/desechables/desechable-7.jpeg" },
+            { name: "Vasos 10 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-8.jpeg" },
+            { name: "Aluminio", price: 4000, unit: "7 metros", image: "../productos/desechables/desechable-9.jpeg" },
+            { name: "Aluminio", price: 7000, unit: "16 metros", image: "../productos/desechables/desechable-10.jpeg" },
+            { name: "Aluminio", price: 25000, unit: "x100", image: "../productos/desechables/desechable-11.jpeg" },
+            { name: "Aluminio", price: 65000, unit: "300 metros", image: "../productos/desechables/desechable-12.jpeg" },
+            { name: "Vasos 14 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-13.jpeg" },
+            { name: "Vasos 5 Onzas", price: 2500, unit: "Unidad", image: "../productos/desechables/desechable-14.jpeg" },
+            { name: "Servilleta Nube 1a1", price: 2500, unit: "Unidad", image: "../productos/desechables/desechable-15.jpeg" },
+            { name: "Servilleta", price: 6700, unit: "x3", image: "../productos/desechables/desechable-16.jpeg" },
+            { name: "Bolsa Manija", price: 2700, unit: "1/2", image: "../productos/desechables/desechable-17.jpeg" },
+            { name: "Bolsa Manija", price: 2900, unit: "2 kilos", image: "../productos/desechables/desechable-18.jpeg" },
+            { name: "Bolsa Manija", price: 3700, unit: "3 kilos", image: "../productos/desechables/desechable-19.jpeg" },
+            { name: "Servilleta Nube", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-20.jpeg" },
+            { name: "Bolsa Manija", price: 5700, unit: "10 kilos", image: "../productos/desechables/desechable-21.jpeg" },
+            { name: "Bolsa Manija", price: 6900, unit: "15 kilos", image: "../productos/desechables/desechable-22.jpeg" },
+            { name: "Bolsa Manija", price: 10000, unit: "25 kilos", image: "../productos/desechables/desechable-23.jpeg" },
+            { name: "Bolsa Manija", price: 4700, unit: "5 kilos", image: "../productos/desechables/desechable-24.jpeg" },
+            { name: "Bolsa de Aluminio L-19", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-25.jpeg" },
+            { name: "Tapas 3.5, 6 y 7 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-26.jpeg" },
+            { name: "Tapas 9, 10 y 12 Onzas", price: 4800, unit: "Unidad", image: "../productos/desechables/desechable-27.jpeg" },
+            { name: "Tapas 13, 14 y 16 Onzas", price: 5800, unit: "Unidad", image: "../productos/desechables/desechable-28.jpeg" },
+            { name: "Bolsa de Aluminio L-17", price: 3200, unit: "Unidad", image: "../productos/desechables/desechable-29.jpeg" },
+            { name: "Vaso Icopor 6 Onzas", price: 3500, unit: "Unidad", image: "../productos/desechables/desechable-30.jpeg" },
+            { name: "Vaso Icopor 4 Onzas", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-31.jpeg" },
+            { name: "Servilleta Sanitisu", price: 6500, unit: "Unidad", image: "../productos/desechables/desechable-32.jpeg" },
+            { name: "Vaso de Icopor 8 Onzas", price: 4500, unit: "Unidad", image: "../productos/desechables/desechable-33.jpeg" },
+            { name: "Aluminio P-25", price: 6000, unit: "Unidad", image: "../productos/desechables/desechable-34.jpeg" },
+            { name: "Aluminio L-25", price: 8000, unit: "Unidad", image: "../productos/desechables/desechable-35.jpeg" },
+            { name: "Aluminio L-23", price: 5500, unit: "Unidad", image: "../productos/desechables/desechable-36.jpeg" },
+            { name: "Aluminio L-21", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-37.jpeg" },
+            { name: "Servilleta Cafetería", price: 3000, unit: "100 unds", image: "../productos/desechables/desechable-38.jpeg" },
+            { name: "Aluminio L-17", price: 3000, unit: "Unidad", image: "../productos/desechables/desechable-39.jpeg" },
+            { name: "Bolsa para Hielo", price: 3500, unit: "Unidad", image: "../productos/desechables/desechable-40.jpeg" },
+            { name: "Bolsa", price: 6300, unit: "6 libras", image: "../productos/desechables/desechable-41.jpeg" },
+            { name: "Bolsa", price: 8000, unit: "8 libras", image: "../productos/desechables/desechable-42.jpeg" },
+            { name: "Aluminio L-19", price: 3500, unit: "Unidad", image: "../productos/desechables/desechable-43.jpeg" },
+            { name: "Bolsa", price: 1500, unit: "1/2", image: "../productos/desechables/desechable-44.jpeg" },
+            { name: "Cuchara Pequeña", price: 3200, unit: "100 unds", image: "../productos/desechables/desechable-45.jpeg" },
+            { name: "Tenedor Pequeño", price: 3200, unit: "100 unds", image: "../productos/desechables/desechable-46.jpeg" },
+            { name: "Tenedor Grande", price: 5000, unit: "100 unds", image: "../productos/desechables/desechable-47.jpeg" },
+            { name: "Cuchara Grande", price: 5000, unit: "100 unds", image: "../productos/desechables/desechable-48.jpeg" },
+            { name: "Bolsa", price: 4800, unit: "5 libras", image: "../productos/desechables/desechable-49.jpeg" },
+            { name: "Molde Aluminio 021", price: 6000, unit: "20 unds", image: "../productos/desechables/desechable-50.jpeg" },
+            { name: "Molde Aluminio 031", price: 7000, unit: "20 unds", image: "../productos/desechables/desechable-51.jpeg" },
+            { name: "Molde Aluminio 041", price: 8000, unit: "20 unds", image: "../productos/desechables/desechable-52.jpeg" },
+            { name: "Vasos Fresh 9 Onzas", price: 0, unit: "20 unds", image: "../productos/desechables/desechable-53.jpeg" },
+            { name: "Cuchillo", price: 5000, unit: "100 unds", image: "../productos/desechables/desechable-54.jpeg" },
+            { name: "Porta Hamburguesa", price: 3000, unit: "25 unds", image: "../productos/desechables/desechable-55.jpeg" },
+            { name: "Porta Perro", price: 3000, unit: "25 unds", image: "../productos/desechables/desechable-56.jpeg" },
+            { name: "Porta Hamburguesa", price: 5500, unit: "50 unds", image: "../productos/desechables/desechable-57.jpeg" },
+            { name: "Porta Perro", price: 5500, unit: "50 unds", image: "../productos/desechables/desechable-58.jpeg" },
+            { name: "Porta Perro", price: 11000, unit: "100 unds", image: "../productos/desechables/desechable-59.jpeg" },
+            { name: "Vaso Whisky Pequeño", price: 0, unit: "20 unds", image: "../productos/desechables/desechable-60.jpeg" },
+            { name: "Porta Hamburguesa", price: 11000, unit: "100 unds", image: "../productos/desechables/desechable-61.jpeg" },
+            { name: "Porta Arepa", price: 8000, unit: "100 unds", image: "../productos/desechables/desechable-62.jpeg" },
+            { name: "Palillo para Helado", price: 14000, unit: "1000 unds", image: "../productos/desechables/desechable-63.jpeg" },
+            { name: "Guantes Manipulación", price: 3000, unit: "Unidad", image: "../productos/desechables/desechable-64.jpeg" },
+            { name: "Porta Pizza", price: 12000, unit: "100 unds", image: "../productos/desechables/desechable-65.jpeg" },
+            { name: "Festival Palillos Redondos", price: 8500, unit: "1000 unds", image: "../productos/desechables/desechable-66.jpeg" },
+            { name: "Acme León 5 Onzas", price: 2500, unit: "50 unds", image: "../productos/desechables/desechable-67.jpeg" },
+            { name: "Vaso Sicodélico 7 Onzas", price: 2000, unit: "50 unds", image: "../productos/desechables/desechable-68.jpeg" },
+            { name: "Vasos VBC 12 Onzas", price: 4500, unit: "Unidad", image: "../productos/desechables/desechable-69.jpeg" },
+                        { name: "Bimbo Vital pan integral con nueces, banano uva y ciruelas pasas", price: 10500, unit: "x500g", image: "../productos/PANADERIA/panaderia-1.jpeg" },
+            { name: "COMAPAN ponque", price: 6500, unit: "x6", image: "../productos/PANADERIA/panaderia-2.jpeg" },
+            { name: "Bimbo miga de pan clásica", price: 5300, unit: "Unidad", image: "../productos/PANADERIA/panaderia-3.jpeg" },
+            { name: "COMAPAN pan perro", price: 5200, unit: "x6unds", image: "../productos/PANADERIA/panaderia-4.jpeg" },
+            { name: "Bimbo tajada de vainilla", price: 2100, unit: "x60g", image: "../productos/PANADERIA/panaderia-5.jpeg" },
+            { name: "COMAPAN", price: 7500, unit: "x520g", image: "../productos/PANADERIA/panaderia-6.jpeg" },
+            { name: "Bimbo casero limón", price: 6700, unit: "x6", image: "../productos/PANADERIA/panaderia-7.jpeg" },
+            { name: "Bimbo rápiditas tamaño L", price: 12500, unit: "x10und", image: "../productos/PANADERIA/panaderia-8.jpeg" },
+            { name: "COMAPAN caladitos", price: 0, unit: "x24unds", image: "../productos/PANADERIA/panaderia-9.jpeg" },
+            { name: "Guadalupe tostadas integrales", price: 8700, unit: "x24unds 280g", image: "../productos/PANADERIA/panaderia-10.jpeg" },
+            { name: "Marinela pingüinos cookiesycream", price: 4100, unit: "x2unds", image: "../productos/PANADERIA/panaderia-11.jpeg" },
+            { name: "Guadalupe tostadas integrales", price: 3900, unit: "x10unds", image: "../productos/PANADERIA/panaderia-12.jpeg" },
+            { name: "Bimbo tamaño M", price: 7800, unit: "x8unds", image: "../productos/PANADERIA/panaderia-13.jpeg" },
+            { name: "Bimbo ponquecito con gotas de chocolate", price: 2200, unit: "x50g", image: "../productos/PANADERIA/panaderia-14.jpeg" },
+            { name: "Guadalupe tostadas sabor mantequilla", price: 3700, unit: "x10unds", image: "../productos/PANADERIA/panaderia-15.jpeg" },
+            { name: "Tonypan Pan perro", price: 8500, unit: "x12unds", image: "../productos/PANADERIA/panaderia-16.jpeg" },
+            { name: "COMAPAN miga de pan", price: 4000, unit: "x250g", image: "../productos/PANADERIA/panaderia-17.jpeg" },
+            { name: "COMAPAN pan blanco pequeño", price: 4000, unit: "x250g", image: "../productos/PANADERIA/panaderia-18.jpeg" },
+            { name: "Guadalupe Mogolla integral", price: 8600, unit: "x12unds 400g", image: "../productos/PANADERIA/panaderia-19.jpeg" },
+            { name: "Guadalupe miga de pan", price: 5000, unit: "x250g", image: "../productos/PANADERIA/panaderia-20.jpeg" },
+            { name: "Bimbo Pan súper perro", price: 7100, unit: "x6unds", image: "../productos/PANADERIA/panaderia-21.jpeg" },
+            { name: "COMAPAN pan hamburguesa", price: 5200, unit: "x6unds", image: "../productos/PANADERIA/panaderia-22.jpeg" },
+            { name: "Bimbo Casero ponque sabor a vainilla", price: 6700, unit: "x200g", image: "../productos/PANADERIA/panaderia-23.jpeg" },
+            { name: "Bimbo pan artesanal para hamburguesa", price: 11500, unit: "x10unds", image: "../productos/PANADERIA/panaderia-24.jpeg" },
+            { name: "Tía Rosa tortillas de trigo", price: 5600, unit: "x10unds", image: "../productos/PANADERIA/panaderia-25.jpeg" },
+            { name: "Guadalupe pan sabor mantequilla", price: 6800, unit: "x550g", image: "../productos/PANADERIA/panaderia-26.jpeg" },
+            { name: "Bimbo tostaos sabor mantequilla", price: 4600, unit: "x10unds", image: "../productos/PANADERIA/panaderia-27.jpeg" },
+            { name: "Bimbo Pan súper hamburguesa con ajonjolí", price: 6900, unit: "x4unds", image: "../productos/PANADERIA/panaderia-28.jpeg" },
+            { name: "Bimbo chocoso", price: 2600, unit: "x65g", image: "../productos/PANADERIA/panaderia-29.jpeg" },
+            { name: "Marinela sub marino pekitas", price: 2000, unit: "Unidad", image: "../productos/PANADERIA/panaderia-30.jpeg" },
+            { name: "Bimbo Bimboletes ponquecitos sabor a vainilla", price: 2200, unit: "x55g", image: "../productos/PANADERIA/panaderia-31.jpeg" },
+            { name: "Guadalupe Pan integral", price: 7800, unit: "x570g", image: "../productos/PANADERIA/panaderia-32.jpeg" },
+            { name: "Bimbo pan blanco artesano", price: 7600, unit: "Unidad", image: "../productos/PANADERIA/panaderia-33.jpeg" },
+            { name: "Bimbo tostaos integrales", price: 5100, unit: "x10unds", image: "../productos/PANADERIA/panaderia-34.jpeg" },
+            { name: "COMAPAN ponque tajado", price: 6200, unit: "x6unds", image: "../productos/PANADERIA/panaderia-35.jpeg" },
+            { name: "Marinela pingüinos", price: 4200, unit: "x2unds", image: "../productos/PANADERIA/panaderia-36.jpeg" },
+            { name: "Marinela Sub marino", price: 1800, unit: "Unidad", image: "../productos/PANADERIA/panaderia-37.jpeg" },
+            { name: "COMAPAN extra largo sabor mantequilla", price: 7500, unit: "Unidad", image: "../productos/PANADERIA/panaderia-38.jpeg" },
+            { name: "COMAPAN pan blanco extra grande", price: 9800, unit: "x750g", image: "../productos/PANADERIA/panaderia-39.jpeg" },
+            { name: "COMAPAN pan blanco extra largo", price: 6400, unit: "x520g", image: "../productos/PANADERIA/panaderia-40.jpeg" },
+            { name: "Harina para buñuelos", price: 3500, unit: "x500g", image: "../productos/PANADERIA/panaderia-41.jpeg" },
+            { name: "Almidón de yuca (dulce)", price: 5500, unit: "x500g", image: "../productos/PANADERIA/panaderia-42.jpeg" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const catalog = document.getElementById('full-catalog');
+            
+            allProducts.forEach(product => {
+                if(product.image.includes('/EMBUTIOS/')) product.category = 'Embutidos';
+                else if(product.image.includes('/salsas/')) product.category = 'Salsas';
+                else if(product.image.includes('/LACTEOS/')) product.category = 'Lácteos';
+                else if(product.image.includes('/desechables/')) product.category = 'Desechables';
+                else if(product.image.includes('/PANADERIA/')) product.category = 'Panadería';
+                else product.category = 'Otros';
+            });
+            
+            const categories = [...new Set(allProducts.map(p => p.category))];
+            categories.forEach(cat => {
+                const catProducts = allProducts.filter(p => p.category === cat);
+                if (catProducts.length === 0) return;
+
+                const title = document.createElement('h3');
+                title.style.gridColumn = '1 / -1';
+                title.style.marginTop = '2rem';
+                title.style.marginBottom = '1rem';
+                title.style.textTransform = 'capitalize';
+                title.style.fontSize = '2.5rem';
+                title.style.color = 'var(--primary-color)';
+                title.textContent = cat;
+                catalog.appendChild(title);
+
+                catProducts.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    
+                    const formattedPrice = new Intl.NumberFormat('es-CO', { 
+                        style: 'currency', 
+                        currency: 'COP', 
+                        minimumFractionDigits: 0 
+                    }).format(product.price);
+                    
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p class="desc">${product.unit}</p>
+                        <div class="price"><span class="new-price">${formattedPrice}</span></div>
+                    `;
+                    catalog.appendChild(card);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

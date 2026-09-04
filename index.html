@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una aplicacion web para la gestion comercial de la salsamentaria sofi en tocaima</title>
+    <link rel="icon" href="Logo/Favicon.jpeg" type="image/jpeg">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
+            Salsamentaria<span>Sofi</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="html/nosotros.html">Misión y Visión</a></li>
+            <li><a href="html/productos.html">Productos</a></li>
+            <li><a href="html/promociones.html">Promociones</a></li>
+            <li><a href="html/contacto.html">Contacto</a></li>
+            <li><a href="html/integrantes.html">Integrantes</a></li>
+            <li><a href="html/resenas.html">Reseñas</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1 style="font-size: 3rem;">Una aplicacion web para la gestion comercial de la salsamentaria sofi en tocaima</h1>
+            <p>Descubre nuestra selección premium de carnes, quesos y embutidos en Salsamentaria Sofi, con precios actualizados en tiempo real.</p>
+            <a href="html/productos.html" class="cta-btn">Ver Productos y Precios</a>
+        </div>
+    </header>
+
+    <!-- Sección ¿Por qué comprar en Salsamentaria Sofi? -->
+    <section class="why-us-section">
+        <div class="section-header">
+            <h2>¿Por qué comprar en Salsamentaria Sofi?</h2>
+            <p>Conoce las principales razones para elegir nuestros productos y servicios</p>
+        </div>
+        <div class="why-us-grid">
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-drumstick-bite"></i></div>
+                <h3>Productos frescos y de calidad</h3>
+                <p>Los embutidos, quesos y carnes suelen conservarse cuidadosamente para garantizar buen sabor y frescura.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-boxes-stacked"></i></div>
+                <h3>Gran variedad</h3>
+                <p>Puedes encontrar jamones, salchichas, chorizos, quesos, carnes frías y otros productos para diferentes comidas y ocasiones.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-user-check"></i></div>
+                <h3>Atención personalizada</h3>
+                <p>El personal puede recomendar productos, cantidades y combinaciones según tus gustos y necesidades.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-balance-scale"></i></div>
+                <h3>Compra en la cantidad que necesitas</h3>
+                <p>Muchos productos se venden por peso, lo que permite controlar el presupuesto, evitar desperdicios y llevar exactamente lo necesario.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: auto;">
+        <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- WhatsApp Floating Button para facilitar comunicación -->
+    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola,%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20productos." class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Enlace al archivo JS en la carpeta separada -->
+    <script src="js/script.js"></script>
+</body>
+</html>
