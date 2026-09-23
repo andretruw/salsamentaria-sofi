@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Logo/Favicon.jpeg" type="image/jpeg">
+    <title>Promociones - Salsamentaria Sofi</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
+            Salsamentaria<span>Sofi</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Misión y Visión</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="promociones.html">Promociones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="integrantes.html">Integrantes</a></li>
+            <li><a href="resenas.html">Reseñas</a></li>
+        </ul>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+    <div style="padding-top: 80px; min-height: 80vh;">
+        <section id="promociones" class="promotions">
+            <h2>🔥 Promociones de la Semana</h2>
+                        <div class="promo-grid">
+                <div class="promo-card">
+                    <img src="../productos/promosiones/promo-1.jpeg" alt="Promoción 1" style="width: 100%; border-radius: 8px;">
+                    <h3>Leche condensada 1.300g</h3>
+                    <div class="price">
+                        <span class="new-price">$15.000</span>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(501)">Agregar al carrito</button>
+                </div>
+                <div class="promo-card">
+                    <img src="../productos/promosiones/promo-2.jpeg" alt="Promoción 2" style="width: 100%; border-radius: 8px;">
+                    <h3>Combo de tapas con copas</h3>
+                    <div class="price">
+                        <span class="new-price">$7.000</span>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(502)">Agregar al carrito</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
+    </footer>
+    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Botón flotante del carrito -->
+    <div class="cart-float-btn" id="cart-float-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" id="cart-badge">0</div>
+    </div>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Sidebar del carrito -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu Pedido</h3>
+            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Los items del carrito se renderizan aquí -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0</span>
+            </div>
+            <button class="whatsapp-order-btn" id="whatsapp-order-btn">
+                <i class="fab fa-whatsapp"></i> Generar Pedido
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
+
+
