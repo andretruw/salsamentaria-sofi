@@ -23,36 +23,22 @@
             <li><a href="contacto.html">Contacto</a></li>
             <li><a href="integrantes.html">Integrantes</a></li>
             <li><a href="resenas.html">Reseñas</a></li>
+            <li><a href="admin.html" class="admin-nav-link"><i class="fas fa-lock"></i> Admin</a></li>
         </ul>
         <div class="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
     <div style="padding-top: 80px; min-height: 80vh;">
         <section id="promociones" class="promotions">
-            <h2>🔥 Promociones de la Semana</h2>
-                        <div class="promo-grid">
-                <div class="promo-card">
-                    <img src="../productos/promosiones/promo-1.jpeg" alt="Promoción 1" style="width: 100%; border-radius: 8px;">
-                    <h3>Leche condensada 1.300g</h3>
-                    <div class="price">
-                        <span class="new-price">$15.000</span>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(501)">Agregar al carrito</button>
-                </div>
-                <div class="promo-card">
-                    <img src="../productos/promosiones/promo-2.jpeg" alt="Promoción 2" style="width: 100%; border-radius: 8px;">
-                    <h3>Combo de tapas con copas</h3>
-                    <div class="price">
-                        <span class="new-price">$7.000</span>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(502)">Agregar al carrito</button>
-                </div>
+            <h2>🔥 Promociones Especiales</h2>
+            <div class="promo-grid" id="promo-container">
+                <!-- Se poblará dinámicamente con productos de la categoría promociones -->
             </div>
         </section>
     </div>
     <footer>
         <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
     </footer>
-    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola,%20me%20interesan%20las%20promociones" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -86,7 +72,41 @@
     </div>
 
     <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const promoContainer = document.getElementById('promo-container');
+            if (!promoContainer) return;
+
+            const allProds = (typeof getStoredProducts === 'function') ? getStoredProducts() : [];
+            const promos = allProds.filter(p => p.category === 'promociones');
+
+            if (promos.length === 0) {
+                promoContainer.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: var(--text-light); font-size: 1.2rem;">No hay promociones activas en este momento. ¡Vuelve pronto!</p>';
+                return;
+            }
+
+            promoContainer.innerHTML = '';
+            promos.forEach(item => {
+                const formattedPrice = new Intl.NumberFormat('es-CO', { 
+                    style: 'currency', 
+                    currency: 'COP', 
+                    minimumFractionDigits: 0 
+                }).format(item.price);
+
+                const card = document.createElement('div');
+                card.className = 'promo-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" style="width: 100%; border-radius: 8px;" onerror="this.src='../Logo/Favicon.jpeg'">
+                    <h3>${item.name}</h3>
+                    <p class="desc" style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 0.5rem;">${item.unit}</p>
+                    <div class="price">
+                        <span class="new-price">${formattedPrice}</span>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${item.id})">Agregar al carrito</button>
+                `;
+                promoContainer.appendChild(card);
+            });
+        });
+    </script>
 </body>
 </html>
-
-

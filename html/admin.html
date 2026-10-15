@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel de administración de productos y precios para Salsamentaria Sofi">
+    <link rel="icon" href="../Logo/Favicon.jpeg" type="image/jpeg">
+    <title>Administración de Productos - Salsamentaria Sofi</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
+            Salsamentaria<span>Sofi</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Misión y Visión</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="promociones.html">Promociones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="integrantes.html">Integrantes</a></li>
+            <li><a href="resenas.html">Reseñas</a></li>
+            <li><a href="admin.html" class="admin-nav-link active"><i class="fas fa-lock"></i> Admin</a></li>
+        </ul>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="admin-wrapper">
+        
+        <!-- VISTA 1: FORMULARIO DE INICIO DE SESIÓN -->
+        <section id="admin-login-section" class="admin-login-container">
+            <div class="admin-login-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h1 class="admin-login-title">Administración</h1>
+            <p class="admin-login-subtitle">Ingresa tus credenciales para gestionar el catálogo de productos y precios de Salsamentaria Sofi.</p>
+
+            <div id="loginAlert" class="alert-message alert-error"></div>
+
+            <form id="adminLoginForm">
+                <div class="form-group-admin">
+                    <label for="adminEmail">Correo Electrónico</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" id="adminEmail" required placeholder="correo@ejemplo.com" value="andreatrujillosm1302@gmail.com" autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="adminPassword">Contraseña</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock field-icon"></i>
+                        <input type="password" id="adminPassword" required placeholder="Ingresa tu contraseña" autocomplete="current-password">
+                        <button type="button" id="togglePasswordBtn" class="toggle-password-btn" title="Mostrar/ocultar contraseña">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; font-size: 0.9rem; color: var(--text-light);">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="rememberMe" checked style="accent-color: var(--primary-color); cursor: pointer;">
+                        Recordar sesión en este equipo
+                    </label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar al Panel
+                </button>
+            </form>
+
+            <div style="margin-top: 1.8rem; padding-top: 1.2rem; border-top: 1px solid #f1f5f9; font-size: 0.85rem; color: #94a3b8;">
+                <i class="fas fa-shield-alt"></i> Acceso administrativo protegido para personal autorizado.
+            </div>
+        </section>
+
+        <!-- VISTA 2: PANEL DE CONTROL DE PRODUCTOS (DASHBOARD) -->
+        <section id="admin-dashboard-section" style="display: none;">
+            
+            <!-- Barra Superior del Dashboard -->
+            <div class="dashboard-header">
+                <div class="dashboard-user-info">
+                    <div class="dashboard-avatar">AT</div>
+                    <div class="dashboard-greeting">
+                        <h2>Panel de Administración</h2>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
+                            <span class="admin-badge">Administradora Conectada</span>
+                            <span style="font-size: 0.9rem; color: var(--text-light);">Andrea Trujillo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-header-actions">
+                    <button class="btn-admin btn-primary-admin" onclick="openProductModal()">
+                        <i class="fas fa-plus-circle"></i> Nuevo Producto
+                    </button>
+                    <button class="btn-admin btn-secondary-admin" onclick="openExportModal()" title="Exportar o respaldar datos para GitHub">
+                        <i class="fas fa-file-export"></i> Exportar
+                    </button>
+                    <button class="btn-admin btn-secondary-admin" onclick="openImportModal()" title="Importar catálogo desde JSON">
+                        <i class="fas fa-file-import"></i> Importar
+                    </button>
+                    <button class="btn-admin btn-secondary-admin" onclick="resetToDefaultProducts()" title="Restablecer productos originales">
+                        <i class="fas fa-undo"></i> Restablecer
+                    </button>
+                    <a href="productos.html" target="_blank" class="btn-admin btn-secondary-admin">
+                        <i class="fas fa-external-link-alt"></i> Ver Tienda
+                    </a>
+                    <button id="adminLogoutBtn" class="btn-admin btn-danger-admin" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Estadísticas (KPIs) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(255, 95, 31, 0.12); color: var(--primary-color);">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Total Productos</h4>
+                        <div class="stat-value" id="statTotalProducts">0</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Categorías</h4>
+                        <div class="stat-value" id="statTotalCategories">0</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Precio Promedio</h4>
+                        <div class="stat-value" id="statAvgPrice">$0</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Promociones</h4>
+                        <div class="stat-value" id="statTotalPromos">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Filtros y Búsqueda -->
+            <div class="admin-toolbar">
+                <div class="toolbar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchProductInput" placeholder="Buscar por nombre, ID o categoría...">
+                </div>
+
+                <div class="toolbar-filters">
+                    <select id="categoryFilterSelect" class="toolbar-select">
+                        <option value="todos">Todas las categorías</option>
+                    </select>
+
+                    <select id="sortProductsSelect" class="toolbar-select">
+                        <option value="id_asc">ID: Menor a Mayor</option>
+                        <option value="id_desc">ID: Mayor a Menor</option>
+                        <option value="name_asc">Nombre: A - Z</option>
+                        <option value="name_desc">Nombre: Z - A</option>
+                        <option value="price_asc">Precio: Menor a Mayor</option>
+                        <option value="price_desc">Precio: Mayor a Menor</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tabla de Productos -->
+            <div class="admin-table-container">
+                <div class="admin-card-table">
+                    <div class="table-responsive">
+                        <table class="admin-table" id="productsTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">Foto</th>
+                                    <th style="width: 90px;">ID</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Presentación / Unidad</th>
+                                    <th>Precio (COP)</th>
+                                    <th style="width: 110px; text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Filas inyectadas via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer-info">
+                        <span id="tableProductsCounter">Cargando inventario...</span>
+                        <span><i class="fas fa-info-circle"></i> Los cambios se sincronizan en tiempo real con el catálogo de la tienda.</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- MODAL PARA CREAR / EDITAR PRODUCTO -->
+    <div id="productModalOverlay" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h3 id="productModalTitle">Crear Nuevo Producto</h3>
+                <button type="button" id="closeProductModal" class="admin-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="productForm">
+                <div class="admin-modal-body">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px;">
+                        <div class="form-group-admin">
+                            <label for="productIdInput">ID de Producto</label>
+                            <input type="number" id="productIdInput" required class="admin-select" style="padding-left: 1rem;">
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="productCategorySelect">Categoría</label>
+                            <select id="productCategorySelect" class="admin-select" style="padding-left: 1rem;" required>
+                                <option value="embutidos">Embutidos</option>
+                                <option value="lacteos">Lácteos</option>
+                                <option value="salsas">Salsas</option>
+                                <option value="desechables">Desechables</option>
+                                <option value="panaderia">Panadería</option>
+                                <option value="promociones">Promociones</option>
+                                <option value="otra">Otra categoría...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-admin" id="customCategoryGroup" style="display: none;">
+                        <label for="customCategoryInput">Nombre de la nueva categoría</label>
+                        <input type="text" id="customCategoryInput" class="admin-select" style="padding-left: 1rem;" placeholder="Ej. Bebidas, Enlatados">
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="productNameInput">Nombre del Producto</label>
+                        <input type="text" id="productNameInput" required class="admin-select" style="padding-left: 1rem;" placeholder="Ej. Jamón Pietran Especial">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group-admin">
+                            <label for="productUnitInput">Presentación / Peso</label>
+                            <input type="text" id="productUnitInput" required class="admin-select" style="padding-left: 1rem;" placeholder="Ej. 500g, 1 Libra, x6 unds">
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="productPriceInput">Precio ($ COP)</label>
+                            <input type="number" id="productPriceInput" required min="0" step="100" class="admin-select" style="padding-left: 1rem;" placeholder="Ej. 12000">
+                        </div>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label>Foto del Producto</label>
+                        
+                        <div style="margin-bottom: 8px;">
+                            <label style="font-size: 0.85rem; font-weight: 500; color: var(--text-light); display: block; margin-bottom: 4px;">
+                                <i class="fas fa-upload"></i> Subir imagen desde tu dispositivo:
+                            </label>
+                            <input type="file" id="productImageFileInput" accept="image/*" class="admin-select" style="padding: 0.5rem 1rem;">
+                        </div>
+
+                        <div style="margin-bottom: 8px;">
+                            <label style="font-size: 0.85rem; font-weight: 500; color: var(--text-light); display: block; margin-bottom: 4px;">
+                                <i class="fas fa-link"></i> O ingresar ruta relativa / URL web:
+                            </label>
+                            <input type="text" id="productImageUrlInput" class="admin-select" style="padding-left: 1rem;" placeholder="../productos/EMBUTIOS/embutido-1.jpeg o https://...">
+                        </div>
+
+                        <div class="image-preview-box">
+                            <img id="productImagePreview" src="" alt="Vista previa" style="display: none;">
+                            <span id="productImagePlaceholder"><i class="fas fa-image" style="font-size: 2rem; margin-bottom: 6px; display: block;"></i>Vista previa de la imagen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-modal-footer">
+                    <button type="button" id="cancelProductModal" class="btn-admin btn-secondary-admin">Cancelar</button>
+                    <button type="submit" class="btn-admin btn-primary-admin">
+                        <i class="fas fa-save"></i> Guardar Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PARA EXPORTAR / RESPALDAR CATÁLOGO -->
+    <div id="exportModalOverlay" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h3>Exportar y Respaldar Catálogo</h3>
+                <button type="button" id="closeExportModal" class="admin-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="admin-modal-body">
+                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 1.2rem;">
+                    Como la aplicación está desplegada en GitHub Pages de forma estática, tus cambios se guardan automáticamente en tu navegador. Puedes descargar el archivo de respaldo o copiar el código para actualizar el archivo <code>js/script.js</code> del repositorio cuando desees.
+                </p>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 1.2rem; flex-wrap: wrap;">
+                    <button type="button" class="btn-admin btn-primary-admin" onclick="downloadJsonFile()">
+                        <i class="fas fa-download"></i> Descargar productos.json
+                    </button>
+                    <button type="button" class="btn-admin btn-secondary-admin" onclick="copyExportCode()">
+                        <i class="fas fa-copy"></i> Copiar Código para script.js
+                    </button>
+                </div>
+
+                <div class="form-group-admin">
+                    <label for="exportJsonTextarea">Código exportado (JavaScript / JSON):</label>
+                    <textarea id="exportJsonTextarea" rows="8" readonly class="admin-textarea" style="font-family: monospace; font-size: 0.82rem; padding: 0.8rem;"></textarea>
+                </div>
+            </div>
+            <div class="admin-modal-footer">
+                <button type="button" class="btn-admin btn-secondary-admin" onclick="closeExportModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA IMPORTAR CATÁLOGO -->
+    <div id="importModalOverlay" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h3>Importar Catálogo (JSON)</h3>
+                <button type="button" id="closeImportModal" class="admin-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="importForm">
+                <div class="admin-modal-body">
+                    <p style="font-size: 0.95rem; color: #475569; margin-bottom: 1.2rem;">
+                        Puedes cargar un archivo <code>.json</code> previamente exportado o pegar el contenido JSON directamente en el campo inferior.
+                    </p>
+
+                    <div class="form-group-admin">
+                        <label for="importFileInput">Cargar archivo JSON desde tu equipo:</label>
+                        <input type="file" id="importFileInput" accept=".json,application/json" class="admin-select" style="padding: 0.5rem 1rem;">
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="importJsonTextarea">O pegar contenido JSON aquí:</label>
+                        <textarea id="importJsonTextarea" rows="7" class="admin-textarea" style="font-family: monospace; font-size: 0.82rem; padding: 0.8rem;" placeholder='[{"id": 101, "name": "Mortadela Zenu", "category": "embutidos", "price": 12000, "unit": "500g", "image": "..."}]'></textarea>
+                    </div>
+                </div>
+                <div class="admin-modal-footer">
+                    <button type="button" class="btn-admin btn-secondary-admin" onclick="closeImportModal()">Cancelar</button>
+                    <button type="submit" class="btn-admin btn-primary-admin">
+                        <i class="fas fa-file-import"></i> Reemplazar Catálogo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const products = [
+const initialProducts = [
     { id: 101, name: "Mortadela Zenu", category: "embutidos", price: 12000, unit: "500g", image: "../productos/EMBUTIOS/embutido-1.jpeg" },
     { id: 102, name: "Jamón Zenu", category: "embutidos", price: 20500, unit: "500g", image: "../productos/EMBUTIOS/embutido-2.jpeg" },
     { id: 103, name: "Jamón Zenu", category: "embutidos", price: 12000, unit: "250g", image: "../productos/EMBUTIOS/embutido-3.jpeg" },
@@ -216,6 +216,44 @@ const products = [
     { id: 502, name: "Promo: Combo de tapas con copas", category: "promociones", price: 7000, unit: "Unidad", image: "../productos/promosiones/promo-2.jpeg" }
 ];
 
+// === GESTIÓN DE PRODUCTOS Y PERSISTENCIA (LOCALSTORAGE) ===
+function getStoredProducts() {
+    try {
+        const stored = localStorage.getItem('salsamentaria_products');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
+        }
+    } catch (e) {
+        console.error('Error al recuperar productos de localStorage:', e);
+    }
+    try {
+        localStorage.setItem('salsamentaria_products', JSON.stringify(initialProducts));
+    } catch (e) {
+        console.warn('No se pudo inicializar localStorage:', e);
+    }
+    return [...initialProducts];
+}
+
+function saveStoredProducts(newProducts) {
+    try {
+        localStorage.setItem('salsamentaria_products', JSON.stringify(newProducts));
+    } catch (e) {
+        console.error('Error al guardar en localStorage:', e);
+    }
+    products = newProducts;
+}
+
+// Variable reactiva sincronizada
+let products = getStoredProducts();
+
+// Exponer globalmente para el panel de administración
+window.initialProducts = initialProducts;
+window.getStoredProducts = getStoredProducts;
+window.saveStoredProducts = saveStoredProducts;
+
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -241,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderProducts(filter = 'todos') {
         if (!productContainer) return; // Si no estamos en la página principal
         
+        products = getStoredProducts(); // Cargar catálogo actualizado desde localStorage
         productContainer.innerHTML = '';
         
         const categoriesToRender = filter === 'todos' 
@@ -304,22 +343,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // SimulaciÃ³n de "Tiempo Real" para los precios
-    // Cambia aleatoriamente un precio cada 8 segundos para demostrar la interactividad
+    // Simulación de "Tiempo Real" desactivada para conservar precios fijados por administración
+    /*
     setInterval(() => {
         if (!productContainer) return;
 
         const randomProductIndex = Math.floor(Math.random() * products.length);
-        const fluctuation = Math.floor(Math.random() * 1000) - 500; // FluctÃºa entre -500 y +500 pesos
+        const fluctuation = Math.floor(Math.random() * 1000) - 500;
         
         products[randomProductIndex].price += fluctuation;
-        
-        // Evitar que el precio baje de cierto lÃ­mite
         if(products[randomProductIndex].price < 5000) {
             products[randomProductIndex].price = 5000;
         }
 
-        // Re-renderizar si estamos viendo la categorÃ­a afectada o "todos"
         const activeFilterBtn = document.querySelector('.filter-btn.active');
         if (activeFilterBtn) {
             const activeFilter = activeFilterBtn.getAttribute('data-filter');
@@ -327,8 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderProducts(activeFilter);
             }
         }
-        
     }, 8000);
+    */
 });
 
 
@@ -372,6 +408,7 @@ function saveCart() {
 }
 
 window.addToCart = function(productId) {
+    products = getStoredProducts();
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
