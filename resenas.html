@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Logo/Favicon.jpeg" type="image/jpeg">
+    <title>Reseñas - Salsamentaria Sofi</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
+            Salsamentaria<span>Sofi</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Misión y Visión</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="promociones.html">Promociones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="integrantes.html">Integrantes</a></li>
+            <li><a href="resenas.html">Reseñas</a></li>
+        </ul>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+    <div style="padding-top: 80px; min-height: 80vh;">
+        <section id="resenas" class="reviews-section">
+            <div class="section-header">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Tu opinión es muy importante para nosotros</p>
+            </div>
+            
+            <div class="reviews-container">
+                <!-- Columna para ver reseñas -->
+                <div class="reviews-list" id="reviewsList">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">M</div>
+                            <div class="review-meta">
+                                <h4>María González</h4>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">¡Excelente calidad en los embutidos y la atención es de primera! Muy recomendados en Tocaima.</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">C</div>
+                            <div class="review-meta">
+                                <h4>Carlos Ramírez</h4>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">Muy buenos precios y productos frescos. Me encantaría que trajeran más variedad de quesos madurados.</p>
+                    </div>
+                </div>
+
+                <!-- Columna para dejar una reseña -->
+                <div class="review-form-container">
+                    <h3>Deja tu Reseña</h3>
+                    <form id="reviewForm" class="review-form">
+                        <div class="form-group">
+                            <label for="reviewerName">Tu Nombre</label>
+                            <input type="text" id="reviewerName" required placeholder="Ej. Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label>Calificación</label>
+                            <div class="rating-select" id="ratingSelect">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="ratingValue" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">Comentario</label>
+                            <textarea id="reviewText" rows="4" required placeholder="Cuéntanos tu experiencia con nuestros productos..."></textarea>
+                        </div>
+                        <button type="submit" class="whatsapp-order-btn" style="margin-top: 15px;">
+                            <i class="fab fa-whatsapp"></i> Enviar Reseña por WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2026 Salsamentaria Sofi. Todos los derechos reservados.</p>
+    </footer>
+    <a href="https://api.whatsapp.com/send?phone=573204867044&text=Hola" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        // Lógica específica para las reseñas
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('#ratingSelect .fa-star');
+            const ratingValue = document.getElementById('ratingValue');
+            const form = document.getElementById('reviewForm');
+            const reviewsList = document.getElementById('reviewsList');
+
+            // Efecto Hover y Selección de Estrellas
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = star.getAttribute('data-rating');
+                    ratingValue.value = rating;
+                    
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-rating') <= rating) {
+                            s.classList.remove('far');
+                            s.classList.add('fas');
+                            s.style.color = '#ffc107'; // Color dorado
+                        } else {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                            s.style.color = '#ccc';
+                        }
+                    });
+                });
+            });
+
+            // Enviar Reseña
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('reviewerName').value;
+                const text = document.getElementById('reviewText').value;
+                const rating = ratingValue.value;
+
+                if (rating == 0) {
+                    alert('Por favor selecciona una calificación de estrellas.');
+                    return;
+                }
+
+                // Crear HTML de las estrellas seleccionadas
+                let starsHTML = '';
+                for(let i = 1; i <= 5; i++) {
+                    if (i <= rating) {
+                        starsHTML += '<i class="fas fa-star" style="color: #ffc107;"></i>';
+                    } else {
+                        starsHTML += '<i class="far fa-star" style="color: #ccc;"></i>';
+                    }
+                }
+
+                // Obtener inicial para el Avatar
+                const initial = name.charAt(0).toUpperCase();
+
+                // Crear elemento de reseña
+                const newReview = document.createElement('div');
+                newReview.classList.add('review-card');
+                newReview.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-avatar">${initial}</div>
+                        <div class="review-meta">
+                            <h4>${name}</h4>
+                            <div class="stars">${starsHTML}</div>
+                        </div>
+                    </div>
+                    <p class="review-text">${text}</p>
+                `;
+
+                // Agregar a la lista (al principio)
+                reviewsList.prepend(newReview);
+
+                // Resetear formulario
+                form.reset();
+                ratingValue.value = 0;
+                stars.forEach(s => {
+                    s.classList.remove('fas');
+                    s.classList.add('far');
+                    s.style.color = '#ccc';
+                });
+
+                // Enviar a WhatsApp
+                const whatsappMessage = `Hola, quiero dejar mi reseña sobre Salsamentaria Sofi:\n*Nombre:* ${name}\n*Calificación:* ${rating} estrellas\n*Comentario:* ${text}`;
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=573204867044&text=${encodeURIComponent(whatsappMessage)}`;
+                
+                alert('¡Gracias por tu reseña! A continuación serás redirigido a WhatsApp para que nos la envíes.');
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
