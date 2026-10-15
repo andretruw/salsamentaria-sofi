@@ -1,8 +1,8 @@
-const initialProducts = [
+const products = [
     { id: 101, name: "Mortadela Zenu", category: "embutidos", price: 12000, unit: "500g", image: "../productos/EMBUTIOS/embutido-1.jpeg" },
     { id: 102, name: "Jamón Zenu", category: "embutidos", price: 20500, unit: "500g", image: "../productos/EMBUTIOS/embutido-2.jpeg" },
     { id: 103, name: "Jamón Zenu", category: "embutidos", price: 12000, unit: "250g", image: "../productos/EMBUTIOS/embutido-3.jpeg" },
-    { id: 104, name: "Jamón Zenu", category: "embutidos", price: 4500, unit: "111g", image: "../productos/EMBUTIOS/embutido-4.jpeg" },
+    { id: 104, name: "Jamón Zenu", category: "embutidos", price: 0, unit: "111g", image: "../productos/EMBUTIOS/embutido-4.jpeg" },
     { id: 105, name: "Mortadela Zenu", category: "embutidos", price: 7500, unit: "250g", image: "../productos/EMBUTIOS/embutido-5.jpeg" },
     { id: 106, name: "Mortadela", category: "embutidos", price: 7000, unit: "250g", image: "../productos/EMBUTIOS/embutido-6.jpeg" },
     { id: 107, name: "Jamón Pietran", category: "embutidos", price: 15000, unit: "230g", image: "../productos/EMBUTIOS/embutido-7.jpeg" },
@@ -13,7 +13,7 @@ const initialProducts = [
     { id: 112, name: "Hamburguesa Ranchera", category: "embutidos", price: 7500, unit: "2 unds", image: "../productos/EMBUTIOS/embutido-12.jpeg" },
     { id: 113, name: "Salchicha Americana Zenu", category: "embutidos", price: 52000, unit: "18 unds", image: "../productos/EMBUTIOS/embutido-13.jpeg" },
     { id: 114, name: "Salchicha Long Zenu", category: "embutidos", price: 33500, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-14.jpeg" },
-    { id: 115, name: "Chorizo Santarrosano Zenu", category: "embutidos", price: 17000, unit: "250g", image: "../productos/EMBUTIOS/embutido-15.jpeg" },
+    { id: 115, name: "Chorizo Santarrosano Zenu", category: "embutidos", price: 0, unit: "250g", image: "../productos/EMBUTIOS/embutido-15.jpeg" },
     { id: 116, name: "Jamón Frigosan", category: "embutidos", price: 8000, unit: "450g", image: "../productos/EMBUTIOS/embutido-16.jpeg" },
     { id: 117, name: "Jamón Ahumado Nutivara", category: "embutidos", price: 10000, unit: "500g", image: "../productos/EMBUTIOS/embutido-17.jpeg" },
     { id: 118, name: "Jamón Ahumado Nutivara", category: "embutidos", price: 5500, unit: "250g", image: "../productos/EMBUTIOS/embutido-18.jpeg" },
@@ -21,9 +21,9 @@ const initialProducts = [
     { id: 120, name: "Tocineta Nojo's", category: "embutidos", price: 17500, unit: "900g", image: "../productos/EMBUTIOS/embutido-20.jpeg" },
     { id: 121, name: "Tocineta El Coleo", category: "embutidos", price: 7500, unit: "250g", image: "../productos/EMBUTIOS/embutido-21.jpeg" },
     { id: 122, name: "Tocineta El Coleo", category: "embutidos", price: 19500, unit: "1000g", image: "../productos/EMBUTIOS/embutido-22.jpeg" },
-    { id: 123, name: "Carne Hamburguesa San Miguel", category: "embutidos", price: 12500, unit: "500g 6 unds", image: "../productos/EMBUTIOS/embutido-23.jpeg" },
+    { id: 123, name: "Carne Hamburguesa San Miguel", category: "embutidos", price: 0, unit: "500g 6 unds", image: "../productos/EMBUTIOS/embutido-23.jpeg" },
     { id: 124, name: "Carne Hamburguesa Nutivara", category: "embutidos", price: 7000, unit: "500g 10 unds", image: "../productos/EMBUTIOS/embutido-24.jpeg" },
-    { id: 125, name: "Carne Hamburguesa Madrigal", category: "embutidos", price: 12500, unit: "500g 8 unds", image: "../productos/EMBUTIOS/embutido-25.jpeg" },
+    { id: 125, name: "Carne Hamburguesa Madrigal", category: "embutidos", price: 0, unit: "500g 8 unds", image: "../productos/EMBUTIOS/embutido-25.jpeg" },
     { id: 126, name: "Salchicha Americana Azul", category: "embutidos", price: 36000, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-26.jpeg" },
     { id: 127, name: "Salchicha Américana El Coleo", category: "embutidos", price: 35000, unit: "Unidad", image: "../productos/EMBUTIOS/embutido-27.jpeg" },
     { id: 128, name: "Salchicha de Cerdo Alemana El Coleo", category: "embutidos", price: 32000, unit: "36 unds", image: "../productos/EMBUTIOS/embutido-28.jpeg" },
@@ -81,8 +81,7 @@ const initialProducts = [
     { id: 147, name: "Fruco Salsa Mayonesa", category: "salsas", price: 7000, unit: "190g", image: "../productos/salsas/salsa-nuevo-4.jpeg" },
     { id: 148, name: "Fruco Salsa Rosada", category: "salsas", price: 2500, unit: "80g", image: "../productos/salsas/salsa-nuevo-5.jpeg" },
     { id: 149, name: "Fruco Mayonesa", category: "salsas", price: 3500, unit: "120g", image: "../productos/salsas/salsa-nuevo-6.jpeg" },
-    { id: 150, name: "Bary Vinagreta", category: "salsas", price: 7000, unit: "200g", image: "../productos/salsas/salsa-nuevo-7.jpeg" },
-    { id: 151, name: "Condimento en pasta Ajo", category: "salsas", price: 1500, unit: "50g", image: "../productos/salsas/condimento-ajo.jpg" },
+    { id: 150, name: "Bary Vinagreta", category: "salsas", price: 0, unit: "200g", image: "../productos/salsas/salsa-nuevo-7.jpeg" },
     { id: 201, name: "Queso Doble Crema Tajado (Bloque 50k, Libra 10k, 1/2 5k, 1/4 2.5k)", category: "lacteos", price: 10000, unit: "Libra", image: "../productos/LACTEOS/lacteo-1.jpeg" },
     { id: 202, name: "Mantequilla San Sebastián", category: "lacteos", price: 4500, unit: "250g", image: "../productos/LACTEOS/lacteo-2.jpeg" },
     { id: 203, name: "Mantequilla San Sebastián", category: "lacteos", price: 2500, unit: "125g", image: "../productos/LACTEOS/lacteo-3.jpeg" },
@@ -100,7 +99,6 @@ const initialProducts = [
     { id: 215, name: "Mantequilla industrial", category: "lacteos", price: 4700, unit: "1000g", image: "../productos/LACTEOS/lacteo-15.jpeg" },
     { id: 216, name: "Mantequilla industrial", category: "lacteos", price: 2400, unit: "500g", image: "../productos/LACTEOS/lacteo-16.jpeg" },
     { id: 217, name: "Monte frío leche entera", category: "lacteos", price: 4500, unit: "900mL", image: "../productos/LACTEOS/lacteo-17.jpeg" },
-    { id: 218, name: "Mantequilla La Buena", category: "lacteos", price: 8500, unit: "500g", image: "../productos/LACTEOS/mantequilla-la-buena.jpg" },
     { id: 301, name: "Vaso 9 Onzas", category: "desechables", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-1.jpeg" },
     { id: 302, name: "Vasos 3.5 Onzas", category: "desechables", price: 2600, unit: "Unidad", image: "../productos/desechables/desechable-2.jpeg" },
     { id: 303, name: "Vasos 14 Onzas", category: "desechables", price: 4000, unit: "Unidad", image: "../productos/desechables/desechable-3.jpeg" },
@@ -160,7 +158,7 @@ const initialProducts = [
     { id: 357, name: "Porta Hamburguesa", category: "desechables", price: 5500, unit: "50 unds", image: "../productos/desechables/desechable-57.jpeg" },
     { id: 358, name: "Porta Perro", category: "desechables", price: 5500, unit: "50 unds", image: "../productos/desechables/desechable-58.jpeg" },
     { id: 359, name: "Porta Perro", category: "desechables", price: 11000, unit: "100 unds", image: "../productos/desechables/desechable-59.jpeg" },
-    { id: 360, name: "Vaso Whisky Pequeño", category: "desechables", price: 8000, unit: "20 unds", image: "../productos/desechables/desechable-60.jpeg" },
+    { id: 360, name: "Vaso Whisky Pequeño", category: "desechables", price: 0, unit: "20 unds", image: "../productos/desechables/desechable-60.jpeg" },
     { id: 361, name: "Porta Hamburguesa", category: "desechables", price: 11000, unit: "100 unds", image: "../productos/desechables/desechable-61.jpeg" },
     { id: 362, name: "Porta Arepa", category: "desechables", price: 8000, unit: "100 unds", image: "../productos/desechables/desechable-62.jpeg" },
     { id: 363, name: "Palillo para Helado", category: "desechables", price: 14000, unit: "1000 unds", image: "../productos/desechables/desechable-63.jpeg" },
@@ -178,7 +176,7 @@ const initialProducts = [
     { id: 406, name: "COMAPAN", category: "panaderia", price: 7500, unit: "x520g", image: "../productos/PANADERIA/panaderia-6.jpeg" },
     { id: 407, name: "Bimbo casero limón", category: "panaderia", price: 6700, unit: "x6", image: "../productos/PANADERIA/panaderia-7.jpeg" },
     { id: 408, name: "Bimbo rápiditas tamaño L", category: "panaderia", price: 12500, unit: "x10und", image: "../productos/PANADERIA/panaderia-8.jpeg" },
-    { id: 409, name: "COMAPAN caladitos", category: "panaderia", price: 8500, unit: "x24unds", image: "../productos/PANADERIA/panaderia-9.jpeg" },
+    { id: 409, name: "COMAPAN caladitos", category: "panaderia", price: 0, unit: "x24unds", image: "../productos/PANADERIA/panaderia-9.jpeg" },
     { id: 410, name: "Guadalupe tostadas integrales", category: "panaderia", price: 8700, unit: "x24unds 280g", image: "../productos/PANADERIA/panaderia-10.jpeg" },
     { id: 411, name: "Marinela pingüinos cookiesycream", category: "panaderia", price: 4100, unit: "x2unds", image: "../productos/PANADERIA/panaderia-11.jpeg" },
     { id: 412, name: "Guadalupe tostadas integrales", category: "panaderia", price: 3900, unit: "x10unds", image: "../productos/PANADERIA/panaderia-12.jpeg" },
@@ -216,44 +214,6 @@ const initialProducts = [
     { id: 502, name: "Promo: Combo de tapas con copas", category: "promociones", price: 7000, unit: "Unidad", image: "../productos/promosiones/promo-2.jpeg" }
 ];
 
-// === GESTIÓN DE PRODUCTOS Y PERSISTENCIA (LOCALSTORAGE) ===
-function getStoredProducts() {
-    try {
-        const stored = localStorage.getItem('salsamentaria_products');
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                return parsed;
-            }
-        }
-    } catch (e) {
-        console.error('Error al recuperar productos de localStorage:', e);
-    }
-    try {
-        localStorage.setItem('salsamentaria_products', JSON.stringify(initialProducts));
-    } catch (e) {
-        console.warn('No se pudo inicializar localStorage:', e);
-    }
-    return [...initialProducts];
-}
-
-function saveStoredProducts(newProducts) {
-    try {
-        localStorage.setItem('salsamentaria_products', JSON.stringify(newProducts));
-    } catch (e) {
-        console.error('Error al guardar en localStorage:', e);
-    }
-    products = newProducts;
-}
-
-// Variable reactiva sincronizada
-let products = getStoredProducts();
-
-// Exponer globalmente para el panel de administración
-window.initialProducts = initialProducts;
-window.getStoredProducts = getStoredProducts;
-window.saveStoredProducts = saveStoredProducts;
-
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -279,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderProducts(filter = 'todos') {
         if (!productContainer) return; // Si no estamos en la página principal
         
-        products = getStoredProducts(); // Cargar catálogo actualizado desde localStorage
         productContainer.innerHTML = '';
         
         const categoriesToRender = filter === 'todos' 
@@ -343,19 +302,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Simulación de "Tiempo Real" desactivada para conservar precios fijados por administración
-    /*
+    // SimulaciÃ³n de "Tiempo Real" para los precios
+    // Cambia aleatoriamente un precio cada 8 segundos para demostrar la interactividad
     setInterval(() => {
         if (!productContainer) return;
 
         const randomProductIndex = Math.floor(Math.random() * products.length);
-        const fluctuation = Math.floor(Math.random() * 1000) - 500;
+        const fluctuation = Math.floor(Math.random() * 1000) - 500; // FluctÃºa entre -500 y +500 pesos
         
         products[randomProductIndex].price += fluctuation;
+        
+        // Evitar que el precio baje de cierto lÃ­mite
         if(products[randomProductIndex].price < 5000) {
             products[randomProductIndex].price = 5000;
         }
 
+        // Re-renderizar si estamos viendo la categorÃ­a afectada o "todos"
         const activeFilterBtn = document.querySelector('.filter-btn.active');
         if (activeFilterBtn) {
             const activeFilter = activeFilterBtn.getAttribute('data-filter');
@@ -363,8 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderProducts(activeFilter);
             }
         }
+        
     }, 8000);
-    */
 });
 
 
@@ -408,7 +370,6 @@ function saveCart() {
 }
 
 window.addToCart = function(productId) {
-    products = getStoredProducts();
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
