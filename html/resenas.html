@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../Logo/Favicon.jpeg" type="image/jpeg">
     <title>Reseñas - Salsamentaria Sofi</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -11,10 +10,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-            <img src="../Logo/Favicon.jpeg" alt="Salsamentaria Sofi" style="height: 50px; border-radius: 50%;">
-            Salsamentaria<span>Sofi</span>
-        </div>
+        <div class="logo">Salsamentaria<span>Sofi</span></div>
         <ul class="nav-links">
             <li><a href="../index.html">Inicio</a></li>
             <li><a href="nosotros.html">Misión y Visión</a></li>
@@ -23,7 +19,6 @@
             <li><a href="contacto.html">Contacto</a></li>
             <li><a href="integrantes.html">Integrantes</a></li>
             <li><a href="resenas.html">Reseñas</a></li>
-            <li><a href="admin.html" class="admin-nav-link"><i class="fas fa-lock"></i> Admin</a></li>
         </ul>
         <div class="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
@@ -103,12 +98,14 @@
     
     <script src="../js/script.js"></script>
     <script>
+        // Lógica específica para las reseñas
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('#ratingSelect .fa-star');
             const ratingValue = document.getElementById('ratingValue');
             const form = document.getElementById('reviewForm');
             const reviewsList = document.getElementById('reviewsList');
 
+            // Efecto Hover y Selección de Estrellas
             stars.forEach(star => {
                 star.addEventListener('click', () => {
                     const rating = star.getAttribute('data-rating');
@@ -118,7 +115,7 @@
                         if (s.getAttribute('data-rating') <= rating) {
                             s.classList.remove('far');
                             s.classList.add('fas');
-                            s.style.color = '#ffc107';
+                            s.style.color = '#ffc107'; // Color dorado
                         } else {
                             s.classList.remove('fas');
                             s.classList.add('far');
@@ -128,6 +125,7 @@
                 });
             });
 
+            // Enviar Reseña
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 
@@ -140,6 +138,7 @@
                     return;
                 }
 
+                // Crear HTML de las estrellas seleccionadas
                 let starsHTML = '';
                 for(let i = 1; i <= 5; i++) {
                     if (i <= rating) {
@@ -149,8 +148,10 @@
                     }
                 }
 
+                // Obtener inicial para el Avatar
                 const initial = name.charAt(0).toUpperCase();
 
+                // Crear elemento de reseña
                 const newReview = document.createElement('div');
                 newReview.classList.add('review-card');
                 newReview.innerHTML = `
@@ -164,7 +165,10 @@
                     <p class="review-text">${text}</p>
                 `;
 
+                // Agregar a la lista (al principio)
                 reviewsList.prepend(newReview);
+
+                // Resetear formulario
                 form.reset();
                 ratingValue.value = 0;
                 stars.forEach(s => {
@@ -173,6 +177,7 @@
                     s.style.color = '#ccc';
                 });
 
+                // Enviar a WhatsApp
                 const whatsappMessage = `Hola, quiero dejar mi reseña sobre Salsamentaria Sofi:\n*Nombre:* ${name}\n*Calificación:* ${rating} estrellas\n*Comentario:* ${text}`;
                 const whatsappUrl = `https://api.whatsapp.com/send?phone=573204867044&text=${encodeURIComponent(whatsappMessage)}`;
                 
