@@ -82,29 +82,44 @@ function handleLogout() {
 
 // === CARGA Y SINCRONIZACIÓN DE PRODUCTOS ===
 function loadProductsData() {
-    if (typeof getStoredProducts === 'function') {
-        currentProducts = getStoredProducts();
+    // Intentar usar el helper global definido en script.js
+    if (typeof window.getStoredProducts === 'function') {
+        currentProducts = window.getStoredProducts();
     } else {
+        // Fallback manual si script.js no cargó correctamente
         const stored = localStorage.getItem('salsamentaria_products');
         if (stored) {
             try {
-                currentProducts = JSON.parse(stored);
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    currentProducts = parsed;
+                } else {
+                    currentProducts = window.initialProducts ? JSON.parse(JSON.stringify(window.initialProducts)) : [];
+                }
             } catch (err) {
-                currentProducts = window.initialProducts || [];
+                currentProducts = window.initialProducts ? JSON.parse(JSON.stringify(window.initialProducts)) : [];
             }
         } else {
-            currentProducts = window.initialProducts || [];
+            currentProducts = window.initialProducts ? JSON.parse(JSON.stringify(window.initialProducts)) : [];
         }
+    }
+
+    // Si después de todo currentProducts está vacío pero initialProducts tiene datos,
+    // usar initialProducts como fallback y guardar en localStorage
+    if (currentProducts.length === 0 && window.initialProducts && window.initialProducts.length > 0) {
+        currentProducts = JSON.parse(JSON.stringify(window.initialProducts));
+        localStorage.setItem('salsamentaria_products', JSON.stringify(currentProducts));
     }
 }
 
 function persistProducts() {
-    if (typeof saveStoredProducts === 'function') {
-        saveStoredProducts(currentProducts);
+    if (typeof window.saveStoredProducts === 'function') {
+        window.saveStoredProducts(currentProducts);
     } else {
         localStorage.setItem('salsamentaria_products', JSON.stringify(currentProducts));
     }
 }
+
 
 // === RENDERIZADO DEL DASHBOARD ===
 function renderDashboard() {
