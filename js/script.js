@@ -2,7 +2,7 @@ const products = [
     { id: 101, name: "Mortadela Zenu", category: "embutidos", price: 12000, unit: "500g", image: "../productos/EMBUTIOS/embutido-1.jpeg" },
     { id: 102, name: "Jamón Zenu", category: "embutidos", price: 20500, unit: "500g", image: "../productos/EMBUTIOS/embutido-2.jpeg" },
     { id: 103, name: "Jamón Zenu", category: "embutidos", price: 12000, unit: "250g", image: "../productos/EMBUTIOS/embutido-3.jpeg" },
-    { id: 104, name: "Jamón Zenu", category: "embutidos", price: 0, unit: "111g", image: "../productos/EMBUTIOS/embutido-4.jpeg" },
+    { id: 104, name: "Jamón Zenu", category: "embutidos", price: 7500, unit: "111g", image: "../productos/EMBUTIOS/embutido-4.jpeg" },
     { id: 105, name: "Mortadela Zenu", category: "embutidos", price: 7500, unit: "250g", image: "../productos/EMBUTIOS/embutido-5.jpeg" },
     { id: 106, name: "Mortadela", category: "embutidos", price: 7000, unit: "250g", image: "../productos/EMBUTIOS/embutido-6.jpeg" },
     { id: 107, name: "Jamón Pietran", category: "embutidos", price: 15000, unit: "230g", image: "../productos/EMBUTIOS/embutido-7.jpeg" },
