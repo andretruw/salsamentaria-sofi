@@ -107,7 +107,7 @@
 
             const catalogProducts = (typeof getStoredProducts === 'function') 
                 ? getStoredProducts() 
-                : (window.initialProducts || []);
+                : (typeof products !== 'undefined' ? products : (window.initialProducts || []));
 
             const categories = [...new Set(catalogProducts.map(p => p.category))];
 

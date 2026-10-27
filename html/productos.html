@@ -28,6 +28,19 @@
                 <h2>Nuestros Productos</h2>
                 <p class="live-indicator"><span class="dot"></span> Precios actualizados en tiempo real</p>
             </div>
+            
+            <!-- Buscador de Productos en Tiempo Real -->
+            <div class="product-search-wrapper">
+                <div class="product-search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="product-search-input" placeholder="Buscar productos por nombre, marca o categoría... (ej. Jamón, Queso, Salsa)" autocomplete="off">
+                    <button type="button" id="clear-search-btn" class="clear-search-btn" title="Limpiar búsqueda" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="search-feedback" class="search-feedback"></div>
+            </div>
+
             <div class="category-filters">
                 <button class="filter-btn active" data-filter="todos">Todos</button>
                 <button class="filter-btn" data-filter="embutidos">Embutidos</button>

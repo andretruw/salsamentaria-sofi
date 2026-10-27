@@ -214,13 +214,41 @@ const products = [
     { id: 502, name: "Promo: Combo de tapas con copas", category: "promociones", price: 7000, unit: "Unidad", image: "../productos/promosiones/promo-2.jpeg" }
 ];
 
+window.initialProducts = products;
+window.getStoredProducts = function() {
+    const stored = localStorage.getItem('salsamentaria_products');
+    if (stored) {
+        try {
+            return JSON.parse(stored);
+        } catch(e) {
+            return products;
+        }
+    }
+    return products;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const searchInput = document.getElementById('product-search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+    const searchFeedback = document.getElementById('search-feedback');
 
-    // Toggle menu mÃ³vil
+    let currentFilter = 'todos';
+    let currentSearch = '';
+
+    // Función para normalizar texto (ignorar mayúsculas y acentos/tildes)
+    function normalizeText(text) {
+        return (text || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
+    // Toggle menu móvil
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
@@ -235,21 +263,80 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Función para renderizar los productos en el HTML
-    function renderProducts(filter = 'todos') {
-        if (!productContainer) return; // Si no estamos en la página principal
+    // Función para renderizar los productos en el HTML con soporte de búsqueda y filtros
+    function renderProducts() {
+        if (!productContainer) return; // Si no estamos en la página de productos
         
         productContainer.innerHTML = '';
         
-        const categoriesToRender = filter === 'todos' 
-            ? [...new Set(products.map(p => p.category))]
-            : [filter];
+        const normSearch = normalizeText(currentSearch);
+        const activeProducts = (typeof getStoredProducts === 'function') ? getStoredProducts() : products;
+
+        // Filtrado por categoría y término de búsqueda
+        const filtered = activeProducts.filter(p => {
+            const matchesCategory = (currentFilter === 'todos' || p.category === currentFilter);
+            if (!matchesCategory) return false;
+
+            if (!normSearch) return true;
+
+            const nameNorm = normalizeText(p.name);
+            const catNorm = normalizeText(p.category);
+            const unitNorm = normalizeText(p.unit);
+            return nameNorm.includes(normSearch) || catNorm.includes(normSearch) || unitNorm.includes(normSearch);
+        });
+
+        // Actualizar feedback visual de la búsqueda
+        if (searchFeedback) {
+            if (normSearch) {
+                const catInfo = currentFilter !== 'todos' ? ` en la categoría <em>${currentFilter}</em>` : '';
+                if (filtered.length > 0) {
+                    searchFeedback.innerHTML = `Mostrando <strong>${filtered.length}</strong> producto${filtered.length === 1 ? '' : 's'} para "<strong>${currentSearch}</strong>"${catInfo}`;
+                } else {
+                    searchFeedback.innerHTML = `No se encontraron resultados para "<strong>${currentSearch}</strong>"${catInfo}`;
+                }
+            } else {
+                searchFeedback.innerHTML = '';
+            }
+        }
+
+        // Si no se encontró ningún producto
+        if (filtered.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-products-msg';
+            noResults.innerHTML = `
+                <i class="fas fa-search"></i>
+                <h3>No se encontraron productos</h3>
+                <p>No encontramos coincidencias para "<strong>${currentSearch}</strong>"${currentFilter !== 'todos' ? ` en la categoría <strong>${currentFilter}</strong>` : ''}. Prueba con otro término o limpia los filtros.</p>
+                <button class="filter-btn active" id="btn-reset-search" style="display: inline-block;">Ver todos los productos</button>
+            `;
+            productContainer.appendChild(noResults);
+
+            const resetBtn = document.getElementById('btn-reset-search');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+                    currentSearch = '';
+                    currentFilter = 'todos';
+                    filterBtns.forEach(b => {
+                        if (b.getAttribute('data-filter') === 'todos') b.classList.add('active');
+                        else b.classList.remove('active');
+                    });
+                    renderProducts();
+                });
+            }
+            return;
+        }
+
+        const categoriesToRender = currentFilter === 'todos' 
+            ? [...new Set(filtered.map(p => p.category))]
+            : [currentFilter];
 
         categoriesToRender.forEach(cat => {
-            const catProducts = products.filter(p => p.category === cat);
+            const catProducts = filtered.filter(p => p.category === cat);
             if (catProducts.length === 0) return;
 
-            if (filter === 'todos') {
+            if (currentFilter === 'todos') {
                 const title = document.createElement('h3');
                 title.style.gridColumn = '1 / -1';
                 title.style.marginTop = '2rem';
@@ -272,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).format(product.price);
 
                 card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='../Logo/Favicon.jpeg'">
                     <h3>${product.name}</h3>
                     <p class="desc">${product.unit}</p>
                     <div class="price">
@@ -285,47 +372,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Renderizado inicial
-    renderProducts();
+    // Configuración y eventos del buscador
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            if (clearSearchBtn) {
+                clearSearchBtn.style.display = currentSearch.trim() ? 'flex' : 'none';
+            }
+            renderProducts();
+        });
 
-    // LÃ³gica para los botones de filtrado de categorÃ­as
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                currentSearch = '';
+                clearSearchBtn.style.display = 'none';
+                searchInput.focus();
+                renderProducts();
+            });
+        }
+
+        // Leer parámetro ?search=... de la URL si se buscó desde index.html u otra página
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search');
+        if (searchParam) {
+            searchInput.value = searchParam;
+            currentSearch = searchParam;
+            if (clearSearchBtn) clearSearchBtn.style.display = 'flex';
+        }
+    }
+
+    // Lógica para los botones de filtrado de categorías
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remover clase active de todos
             filterBtns.forEach(b => b.classList.remove('active'));
-            // AÃ±adir clase active al botÃ³n clickeado
             btn.classList.add('active');
-            
-            // Renderizar los productos filtrados
-            const filterValue = btn.getAttribute('data-filter');
-            renderProducts(filterValue);
+            currentFilter = btn.getAttribute('data-filter');
+            renderProducts();
         });
     });
 
-    // SimulaciÃ³n de "Tiempo Real" para los precios
-    // Cambia aleatoriamente un precio cada 8 segundos para demostrar la interactividad
+    // Renderizado inicial
+    renderProducts();
+
+    // Simulación de precios en tiempo real
     setInterval(() => {
         if (!productContainer) return;
 
         const randomProductIndex = Math.floor(Math.random() * products.length);
-        const fluctuation = Math.floor(Math.random() * 1000) - 500; // FluctÃºa entre -500 y +500 pesos
+        const fluctuation = Math.floor(Math.random() * 1000) - 500;
         
         products[randomProductIndex].price += fluctuation;
         
-        // Evitar que el precio baje de cierto lÃ­mite
-        if(products[randomProductIndex].price < 5000) {
+        if (products[randomProductIndex].price < 5000) {
             products[randomProductIndex].price = 5000;
         }
 
-        // Re-renderizar si estamos viendo la categorÃ­a afectada o "todos"
-        const activeFilterBtn = document.querySelector('.filter-btn.active');
-        if (activeFilterBtn) {
-            const activeFilter = activeFilterBtn.getAttribute('data-filter');
-            if (activeFilter === 'todos' || activeFilter === products[randomProductIndex].category) {
-                renderProducts(activeFilter);
-            }
-        }
-        
+        renderProducts();
     }, 8000);
 });
 
