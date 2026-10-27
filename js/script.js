@@ -214,19 +214,27 @@ const products = [
     { id: 502, name: "Promo: Combo de tapas con copas", category: "promociones", price: 7000, unit: "Unidad", image: "../productos/promosiones/promo-2.jpeg" }
 ];
 
-window.initialProducts = products;
+// Exponer para el panel de administración (copia profunda para que "Restablecer" siempre tenga los datos originales)
+window.initialProducts = JSON.parse(JSON.stringify(products));
+
+// Helpers para que admin.js sincronice con localStorage
 window.getStoredProducts = function() {
     const stored = localStorage.getItem('salsamentaria_products');
     if (stored) {
         try {
-            return JSON.parse(stored);
-        } catch(e) {
-            return products;
-        }
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch(e) {}
     }
-    return products;
+    return JSON.parse(JSON.stringify(window.initialProducts));
 };
 
+window.saveStoredProducts = function(productsArray) {
+    localStorage.setItem('salsamentaria_products', JSON.stringify(productsArray));
+    // Sincronizar con el array en memoria (para la tienda en la misma sesión)
+    products.length = 0;
+    productsArray.forEach(p => products.push(p));
+};
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
