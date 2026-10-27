@@ -24,7 +24,7 @@ const products = [
     { id: 123, name: "Carne Hamburguesa San Miguel", category: "embutidos", price: 0, unit: "500g 6 unds", image: "../productos/EMBUTIOS/embutido-23.jpeg" },
     { id: 124, name: "Carne Hamburguesa Nutivara", category: "embutidos", price: 7000, unit: "500g 10 unds", image: "../productos/EMBUTIOS/embutido-24.jpeg" },
     { id: 125, name: "Carne Hamburguesa Madrigal", category: "embutidos", price: 0, unit: "500g 8 unds", image: "../productos/EMBUTIOS/embutido-25.jpeg" },
-    { id: 126, name: "Salchicha Americana Azul", category: "embutidos", price: 36000, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-26.jpeg" },
+    { id: 126, name: "Salchicha Americana Azul", category: "embutidos", price: 52000, unit: "20 unds", image: "../productos/EMBUTIOS/embutido-26.jpeg" },
     { id: 127, name: "Salchicha Américana El Coleo", category: "embutidos", price: 35000, unit: "Unidad", image: "../productos/EMBUTIOS/embutido-27.jpeg" },
     { id: 128, name: "Salchicha de Cerdo Alemana El Coleo", category: "embutidos", price: 32000, unit: "36 unds", image: "../productos/EMBUTIOS/embutido-28.jpeg" },
     { id: 129, name: "Salchicha Frigosan Maxidog", category: "embutidos", price: 22000, unit: "24 unds", image: "../productos/EMBUTIOS/embutido-29.jpeg" },
